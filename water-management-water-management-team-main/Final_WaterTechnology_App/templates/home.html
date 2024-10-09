@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WaterTechnology</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="main.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+<h1>Impact on water Quality due to Hydrological events | Auswirkungen auf die Wasserqualität aufgrund hydrologischer Ereignisse</h1>
+<img src="{{ user_image2 }}" width="200" height="200" length="200"></img><img src="{{ user_image }}" width="500" height="600"></img>
+
+<form name="UsecaseStation" action="." method="post" onsubmit="combineFormFields()">
+    <label for="UseCase">Enter the Date:</label>
+    <!-- Use input type "date" for the date picker -->
+    <input type="date" name="UseCase" id="UseCase">
+    <label for="StationType">Select Station Type:</label>
+    <select name="StationType" id="StationType">
+        <option value="river">River</option>
+        <option value="reservoir">Reservoir</option>
+    </select>
+    <input type="submit" value="Submit">
+</form>
+
+<form name="output" action="." method="get">
+    <label>Output:</label>
+    {% if selected_station == 'river' %}
+    <!-- Display the river table -->
+    <table>
+        <thead>
+            <tr>
+             {% for column in finuse4 %}
+                <th>{{ column }}</th>
+             {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for parameter, values in finuse3.items() %}
+                <tr>
+                    <td>{{ parameter }}</td>
+                    {% for value in values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif selected_station == 'reservoir' %}
+    <!-- Display the reservoir table -->
+    <table>
+        <thead>
+            <tr>
+             {% for column in finuse2 %}
+                <th>{{ column }}</th>
+             {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for parameter, values in finuse.items() %}
+                <tr>
+                    <td>{{ parameter }}</td>
+                    {% for value in values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</form>
+<h3>ABOUT the project</h3>
+<p>1. The application uses AI modeling to predict the water quality parameters such as pH, NO3N, TN (Total Nitrogen), TP (Total Phosphorus), Water Temperature.</p>
+<p>2. After getting these parameters, the water quality index will be calculated, which will indicate if the water quality is falling in which quality range.</p>
+<img src="{{ user_image3 }}" width="500" height="600"></img><img src="{{ user_image4 }}" width="500" height="600"></img>
+</body>
+</html>
